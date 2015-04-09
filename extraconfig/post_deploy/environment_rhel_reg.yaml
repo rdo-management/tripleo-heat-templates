@@ -1,0 +1,23 @@
+# Note this can be specified either in the call
+# to heat stack-create via an additional -e option
+# or via the global environment on the seed in
+# /etc/heat/environment.d/default.yaml
+parameter_defaults:
+  rhel_reg_activation_key: "foo"
+  rhel_reg_auto_attach: "foo"
+  rhel_reg_base_url: "foo"
+  rhel_reg_environment: "foo"
+  rhel_reg_force: "foo"
+  rhel_reg_machine_name: "foo"
+  rhel_reg_org: "foo"
+  rhel_reg_password: "foo"
+  rhel_reg_pool_id: "foo"
+  rhel_reg_release: "foo"
+  rhel_reg_repos: "foo"
+  rhel_reg_sat_url: "foo"
+  rhel_reg_server_url: "foo"
+  rhel_reg_service_level: "foo"
+  rhel_reg_user: "foo"
+  rhel_reg_type: "foo"
+  rhel_reg_method: "foo"
+
