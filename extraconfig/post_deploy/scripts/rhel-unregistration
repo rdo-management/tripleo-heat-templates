@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -eux
+set -o pipefail
+
+case "${REG_METHOD:-}" in
+    portal|satellite)
+        subscription-manager unregister
+        subscription-manager clean
+        ;;
+    disable)
+        echo "Disabling RHEL unregistration"
+        ;;
+    *)
+        echo "WARNING: only 'portal', 'satellite', and 'disable' are valid values for REG_METHOD."
+        exit 0
+esac
