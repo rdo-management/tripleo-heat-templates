@@ -21,6 +21,10 @@ parameters:
     default: default
     constraints:
       - custom_constraint: nova.keypair
+  NodeIndex:
+    description: The index used by os-net-config to assign static IP addresses.
+    type: string
+    default: unset
   NtpServer:
     type: string
     default: ''
@@ -53,6 +57,8 @@ resources:
     properties:
       config: {get_attr: [NetworkConfig, config_id]}
       server: {get_resource: CephStorage}
+      input_values:
+        node_index: {get_param: NodeIndex}
 
   CephStorageDeployment:
     type: OS::Heat::StructuredDeployment
