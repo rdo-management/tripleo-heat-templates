@@ -135,8 +135,6 @@ resources:
     properties:
       config: {get_attr: [NetworkConfig, config_id]}
       server: {get_resource: BlockStorage}
-      input_values:
-        node_index: {get_param: NodeIndex}
 
   BlockStorageDeployment:
     type: OS::Heat::StructuredDeployment
