@@ -74,6 +74,10 @@ parameters:
     default: default
     description: Name of an existing EC2 KeyPair to enable SSH access to the instances
     type: string
+  NodeIndex:
+    description: The index used by os-net-config to assign static IP addresses.
+    type: string
+    default: unset
   RabbitPassword:
     default: 'guest'
     type: string
@@ -131,6 +135,8 @@ resources:
     properties:
       config: {get_attr: [NetworkConfig, config_id]}
       server: {get_resource: BlockStorage}
+      input_values:
+        node_index: {get_param: NodeIndex}
 
   BlockStorageDeployment:
     type: OS::Heat::StructuredDeployment

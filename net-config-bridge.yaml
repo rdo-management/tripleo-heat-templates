@@ -10,6 +10,7 @@ resources:
       group: os-apply-config
       config:
         os_net_config:
+          node_index: {get_input: node_index}
           network_config:
             -
               type: ovs_bridge
