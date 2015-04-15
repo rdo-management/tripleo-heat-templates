@@ -311,6 +311,10 @@ parameters:
         The tunnel types for the Neutron tenant network. To specify multiple
         values, use a comma separated string, like so: 'gre,vxlan'
     type: string
+  NodeIndex:
+    description: The index used by os-net-config to assign static IP addresses.
+    type: string
+    default: unset
   NovaPassword:
     default: unset
     description: The password for the nova service account, used by nova-api.
@@ -431,7 +435,7 @@ resources:
     type: OS::TripleO::NodeUserData
 
   NetworkConfig:
-    type: OS::TripleO::Net::SoftwareConfig
+    type: OS::TripleO::Controller::Net::SoftwareConfig
 
   NetworkDeployment:
     type: OS::TripleO::SoftwareDeployment
@@ -442,6 +446,7 @@ resources:
       input_values:
         bridge_name: br-ex
         interface_name: {get_param: NeutronPublicInterface}
+        node_index: {get_param: NodeIndex}
 
   ControllerDeployment:
     type: OS::TripleO::SoftwareDeployment

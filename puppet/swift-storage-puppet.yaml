@@ -27,6 +27,10 @@ parameters:
     type: number
     default: 1
     description: The minimum time (in hours) before a partition in a ring can be moved following a rebalance.
+  NodeIndex:
+    description: The index used by os-net-config to assign static IP addresses.
+    type: string
+    default: unset
   PartPower:
     default: 10
     description: Partition Power to use when building Swift rings
@@ -67,6 +71,17 @@ resources:
 
   NodeUserData:
     type: OS::TripleO::NodeUserData
+
+  NetworkConfig:
+    type: OS::TripleO::ObjectStorage::Net::SoftwareConfig
+
+  NetworkDeployment:
+    type: OS::TripleO::SoftwareDeployment
+    properties:
+      config: {get_attr: [NetworkConfig, config_id]}
+      server: {get_resource: ObjectStorage}
+      input_values:
+        node_index: {get_param: NodeIndex}
 
   SwiftStorageHieraConfig:
     type: OS::Heat::StructuredConfig
