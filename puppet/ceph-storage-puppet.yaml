@@ -57,8 +57,6 @@ resources:
     properties:
       config: {get_attr: [NetworkConfig, config_id]}
       server: {get_resource: CephStorage}
-      input_values:
-        node_index: {get_param: NodeIndex}
 
   CephStorageDeployment:
     type: OS::Heat::StructuredDeployment

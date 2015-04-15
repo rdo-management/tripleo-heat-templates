@@ -79,9 +79,7 @@ resources:
     type: OS::TripleO::SoftwareDeployment
     properties:
       config: {get_attr: [NetworkConfig, config_id]}
-      server: {get_resource: ObjectStorage}
-      input_values:
-        node_index: {get_param: NodeIndex}
+      server: {get_resource: SwiftStorage}
 
   SwiftStorageHieraConfig:
     type: OS::Heat::StructuredConfig
