@@ -411,6 +411,10 @@ parameters:
   VirtualIP:
     type: string
     default: ''  # Has to be here because of the ignored empty value bug
+  LogAggregationServer:
+    default: unset
+    description: (unused) the IP address or hostname of the log aggregation server
+    type: string
 
 
 resources:

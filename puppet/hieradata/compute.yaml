@@ -18,3 +18,12 @@ nova::compute::rbd::libvirt_rbd_secret_uuid: "%{hiera('ceph::profile::params::fs
 neutron::plugins::ml2::tunnel_id_ranges: ['1:1000']
 
 ceilometer::agent::auth::auth_tenant_name: 'service'
+
+log_aggregation_sources:
+  nova.compute:
+    path: '/var/log/nova/nova-compute.log'
+    multiline: false
+
+  neutron.openvswitch:
+    path: '/var/log/neturon/openvswitch-agent.log'
+    multiline: false

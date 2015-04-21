@@ -212,6 +212,10 @@ parameters:
     description: The user password for SNMPd with readonly rights running on all Overcloud nodes
     type: string
     hidden: true
+  LogAggregationServer:
+    default: unset
+    description: the IP address or hostname of the log aggregation server
+    type: string
 
   # Controller-specific params
   AdminToken:
@@ -627,6 +631,7 @@ resources:
           SwiftReplicas: { get_param: SwiftReplicas}
           VirtualIP: {get_attr: [ControlVirtualIP, fixed_ips, 0, ip_address]}
           PublicVirtualIP: {get_attr: [PublicVirtualIP, fixed_ips, 0, ip_address]}
+          LogAggregationServer: {get_param: LogAggregationServer}
 
   Compute:
     type: OS::Heat::ResourceGroup
@@ -683,6 +688,7 @@ resources:
           RabbitClientPort: {get_param: RabbitClientPort}
           SnmpdReadonlyUserName: {get_param: SnmpdReadonlyUserName}
           SnmpdReadonlyUserPassword: {get_param: SnmpdReadonlyUserPassword}
+          LogAggregationServer: {get_param: LogAggregationServer}
 
   BlockStorage:
     type: OS::Heat::ResourceGroup

@@ -243,6 +243,10 @@ parameters:
     description: The user password for SNMPd with readonly rights running on all Overcloud nodes
     type: string
     hidden: true
+  LogAggregationServer:
+    default: unset
+    description: (unused) the IP address or hostname of the log aggregation server
+    type: string
 
 
 resources:

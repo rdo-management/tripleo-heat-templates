@@ -12,3 +12,6 @@ nova::network::neutron::neutron_admin_username: 'neutron'
 nova::network::neutron::vif_plugging_is_fatal: false
 nova::network::neutron::vif_plugging_timeout: 30
 
+fluentd::package_name: 'fluentd'
+fluentd::install_repo: false
+fluentd::service_name: 'fluentd'

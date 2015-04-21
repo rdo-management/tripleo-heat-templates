@@ -461,4 +461,34 @@ if hiera('step') >= 3 {
     snmpd_config => [ join(['rouser ', hiera('snmpd_readonly_user_name')]), 'proc  cron', 'includeAllDisks  10%', 'master agentx', 'trapsink localhost public', 'iquerySecName internalUser', 'rouser internalUser', 'defaultMonitors yes', 'linkUpDownNotifications yes' ],
   }
 
+  # log aggregation
+  if hiera('log_aggregation_server', '') {
+    package {'rubygem-fluent-plugin-add':
+      ensure => 'installed',
+    }
+
+    Package['fluentd'] -> Package['rubygem-fluent-plugin-add'] -> Class['fluentd::service']
+
+    include ::fluentd
+
+    create_resources(::tripleo::log_aggregation_source, hiera('log_aggregation_sources'))
+
+    # TODO(sross): swift?
+
+    fluentd::match { 'forward-to-aggregator':
+      pattern            => 'greped.**',
+      priority           => '51',
+      config             => {
+        'type'           => 'forward',
+        'heartbeat_type' => 'tcp',
+        'servers' => [{
+          'name'  => hiera('log_aggregation_server'),
+          'host'  => hiera('log_aggregation_server'),
+          'port'  => '4000'
+        }]
+      },
+      notify => Class['fluentd::service']
+    }
+  }
+
 } #END STEP 3

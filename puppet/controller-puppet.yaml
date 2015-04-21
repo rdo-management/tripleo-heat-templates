@@ -423,6 +423,10 @@ parameters:
     default: 'false'
     description: Set to true to enable package installation via Puppet
     type: boolean
+  LogAggregationServer:
+    default: unset
+    description: the IP address or hostname of the log aggregation server
+    type: string
 
 resources:
 
@@ -627,6 +631,7 @@ resources:
         swift_min_part_hours: {get_param: SwiftMinPartHours}
         swift_mount_check: {get_param: SwiftMountCheck}
         enable_package_install: {get_param: EnablePackageInstall}
+        log_aggregation_server: {get_param: LogAggregationServer}
 
   # Map heat metadata into hiera datafiles
   ControllerConfig:
@@ -852,6 +857,7 @@ resources:
                 tripleo::loadbalancer::public_virtual_interface: {get_input: public_virtual_interface}
                 tripleo::loadbalancer::public_virtual_ip: {get_input: public_virtual_ip}
                 enable_package_install: {get_input: enable_package_install}
+                log_aggregation_server: {get_input: log_aggregation_server}
 
 outputs:
   ip_address:

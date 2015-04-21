@@ -251,6 +251,10 @@ parameters:
     default: 'false'
     description: Set to true to enable package installation via Puppet
     type: boolean
+  LogAggregationServer:
+    default: unset
+    description: the IP address or hostname of the log aggregation server
+    type: string
 
 resources:
 
@@ -360,6 +364,7 @@ resources:
                 admin_password: {get_input: admin_password}
                 ntp::servers: {get_input: ntp_servers}
                 enable_package_install: {get_input: enable_package_install}
+                log_aggregation_server: {get_input: log_aggregation_server}
 
   NovaComputeDeployment:
     type: OS::TripleO::SoftwareDeployment
@@ -438,6 +443,7 @@ resources:
             params:
               server: {get_param: NtpServer}
         enable_package_install: {get_param: EnablePackageInstall}
+        log_aggregation_server: {get_param: LogAggregationServer}
 
 outputs:
   ip_address:
