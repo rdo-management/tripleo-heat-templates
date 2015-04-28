@@ -23,6 +23,7 @@ rabbitmq_config_variables:
 
 mongodb::server::replset: tripleo
 mongodb::server::journal: false
+mongodb::server::config: '/etc/mongod.conf'
 
 redis::port: 6379
 redis::sentinel::master_name: "%{hiera('bootstrap_nodeid')}"
