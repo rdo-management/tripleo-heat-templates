@@ -28,6 +28,12 @@ parameters:
     default: ''
     description: The list of ip/names to use as Ceph monitors
     type: json
+  UpdateIdentifier:
+    default: ''
+    type: string
+    description: >
+      Setting to a previously unused value during stack-update will trigger
+      package update on all nodes
 
 resources:
   CephStorage:
@@ -110,6 +116,7 @@ resources:
             admin:
               key: {get_param: CephAdminKey}
           mon_nodes: {get_param: CephMonitors}
+
 outputs:
   hosts_entry:
     value:

@@ -95,6 +95,13 @@ parameters:
     description: The user password for SNMPd with readonly rights running on all Overcloud nodes
     type: string
     hidden: true
+  UpdateIdentifier:
+    default: ''
+    type: string
+    description: >
+      Setting to a previously unused value during stack-update will trigger
+      package update on all nodes
+
 resources:
   BlockStorage:
     type: OS::Nova::Server
@@ -155,6 +162,7 @@ resources:
         glance:
           host: {get_input: controller_virtual_ip}
           port: {get_param: GlancePort}
+
 outputs:
   hosts_entry:
     value:

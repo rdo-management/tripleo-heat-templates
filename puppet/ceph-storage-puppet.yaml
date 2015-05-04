@@ -32,6 +32,12 @@ parameters:
     default: 'false'
     description: Set to true to enable package installation via Puppet
     type: boolean
+  UpdateIdentifier:
+    default: ''
+    type: string
+    description: >
+      Setting to a previously unused value during stack-update will trigger
+      package update on all nodes
 
 resources:
   CephStorage:
@@ -93,6 +99,18 @@ resources:
               mapped_data:
                 ntp::servers: {get_input: ntp_servers}
                 enable_package_install: {get_input: enable_package_install}
+
+  UpdateConfig:
+    type: OS::TripleO::Tasks::PackageUpdate
+
+  UpdateDeployment:
+    type: OS::Heat::SoftwareDeployment
+    properties:
+      config: {get_resource: UpdateConfig}
+      server: {get_resource: CephStorage}
+      input_values:
+        update_identifier:
+          get_param: UpdateIdentifier
 
 outputs:
   hosts_entry:

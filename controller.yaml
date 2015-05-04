@@ -411,7 +411,12 @@ parameters:
   VirtualIP:
     type: string
     default: ''  # Has to be here because of the ignored empty value bug
-
+  UpdateIdentifier:
+    default: ''
+    type: string
+    description: >
+      Setting to a previously unused value during stack-update will trigger
+      package update on all nodes
 
 resources:
 

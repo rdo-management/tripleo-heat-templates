@@ -21,3 +21,41 @@ resource_registry:
   OS::TripleO::BootstrapNode::SoftwareConfig: bootstrap-config.yaml
   OS::TripleO::NodeUserData: firstboot/userdata_default.yaml
   OS::TripleO::NodeExtraConfigPost: extraconfig/post_deploy/default.yaml
+  OS::TripleO::Tasks::PackageUpdate: extraconfig/tasks/yum_update.yaml
+
+  # TripleO overcloud networks
+  OS::TripleO::Network: network/networks.yaml
+
+  OS::TripleO::Network::External: network/noop.yaml
+  OS::TripleO::Network::InternalApi: network/noop.yaml
+  OS::TripleO::Network::StorageMgmt: network/noop.yaml
+  OS::TripleO::Network::Storage: network/noop.yaml
+  OS::TripleO::Network::Tenant: network/noop.yaml
+
+  OS::TripleO::Network::Ports::NetIpMap: network/ports/net_ip_map.yaml
+
+  # Port assignments for the controller role
+  OS::TripleO::Controller::Ports::ExternalPort: network/ports/noop.yaml
+  OS::TripleO::Controller::Ports::InternalApiPort: network/ports/noop.yaml
+  OS::TripleO::Controller::Ports::StoragePort: network/ports/noop.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: network/ports/noop.yaml
+  OS::TripleO::Controller::Ports::TenantPort: network/ports/noop.yaml
+
+  # Port assignments for the compute role
+  OS::TripleO::Compute::Ports::InternalApiPort: network/ports/noop.yaml
+  OS::TripleO::Compute::Ports::StoragePort: network/ports/noop.yaml
+  OS::TripleO::Compute::Ports::TenantPort: network/ports/noop.yaml
+
+  # Port assignments for the ceph storage role
+  OS::TripleO::CephStorage::Ports::StoragePort: network/ports/noop.yaml
+  OS::TripleO::CephStorage::Ports::StorageMgmtPort: network/ports/noop.yaml
+
+  # Port assignments for the swift storage role
+  OS::TripleO::SwiftStorage::Ports::InternalApiPort: network/ports/noop.yaml
+  OS::TripleO::SwiftStorage::Ports::StoragePort: network/ports/noop.yaml
+  OS::TripleO::SwiftStorage::Ports::StorageMgmtPort: network/ports/noop.yaml
+
+  # Port assignments for the block storage role
+  OS::TripleO::BlockStorage::Ports::InternalApiPort: network/ports/noop.yaml
+  OS::TripleO::BlockStorage::Ports::StoragePort: network/ports/noop.yaml
+  OS::TripleO::BlockStorage::Ports::StorageMgmtPort: network/ports/noop.yaml

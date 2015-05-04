@@ -531,6 +531,14 @@ parameters:
     constraints:
       - custom_constraint: nova.flavor
 
+# Identifiers to trigger tasks on nodes
+  UpdateIdentifier:
+    default: ''
+    type: string
+    description: >
+      Setting to a previously unused value during stack-update will trigger
+      package update on all nodes
+
 resources:
 
   HeatAuthEncryptionKey:
@@ -627,6 +635,7 @@ resources:
           SwiftReplicas: { get_param: SwiftReplicas}
           VirtualIP: {get_attr: [ControlVirtualIP, fixed_ips, 0, ip_address]}
           PublicVirtualIP: {get_attr: [PublicVirtualIP, fixed_ips, 0, ip_address]}
+          UpdateIdentifier: {get_param: UpdateIdentifier}
 
   Compute:
     type: OS::Heat::ResourceGroup
@@ -683,6 +692,7 @@ resources:
           RabbitClientPort: {get_param: RabbitClientPort}
           SnmpdReadonlyUserName: {get_param: SnmpdReadonlyUserName}
           SnmpdReadonlyUserPassword: {get_param: SnmpdReadonlyUserPassword}
+          UpdateIdentifier: {get_param: UpdateIdentifier}
 
   BlockStorage:
     type: OS::Heat::ResourceGroup
@@ -706,6 +716,7 @@ resources:
           RabbitClientPort: {get_param: RabbitClientPort}
           NodeIndex: "%index%"
           NtpServer: {get_param: NtpServer}
+          UpdateIdentifier: {get_param: UpdateIdentifier}
 
   ObjectStorage:
     type: OS::Heat::ResourceGroup
@@ -724,6 +735,7 @@ resources:
           Replicas: { get_param: SwiftReplicas}
           NodeIndex: "%index%"
           NtpServer: {get_param: NtpServer}
+          UpdateIdentifier: {get_param: UpdateIdentifier}
 
   CephStorage:
     type: OS::Heat::ResourceGroup
@@ -737,6 +749,7 @@ resources:
           Flavor: {get_param: OvercloudCephStorageFlavor}
           NodeIndex: "%index%"
           NtpServer: {get_param: NtpServer}
+          UpdateIdentifier: {get_param: UpdateIdentifier}
 
   allNodesConfig:
     type: OS::TripleO::AllNodes::SoftwareConfig
