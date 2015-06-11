@@ -12,7 +12,8 @@ resource_registry:
   OS::TripleO::CephStorage::Net::SoftwareConfig: net-config-noop.yaml
   OS::TripleO::ControllerPostDeployment: puppet/controller-post-puppet.yaml
   # set to controller-config-pacemaker.yaml to enable pacemaker
-  OS::TripleO::ControllerConfig: puppet/controller-config.yaml
+  # OS::TripleO::ControllerConfig: puppet/controller-config.yaml
+  OS::TripleO::ControllerConfig: puppet/controller-config-pacemaker.yaml
   OS::TripleO::ComputePostDeployment: puppet/compute-post-puppet.yaml
   OS::TripleO::ObjectStoragePostDeployment: puppet/swift-storage-post.yaml
   OS::TripleO::BlockStoragePostDeployment: puppet/cinder-storage-post.yaml
