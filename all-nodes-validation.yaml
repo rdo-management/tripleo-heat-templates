@@ -1,0 +1,60 @@
+heat_template_version: 2015-04-30
+
+description: >
+  Software Config to drive validations that occur on all nodes.
+  Note, you need the heat-config-script element built into your
+  images, due to the script group below.
+
+parameters:
+  ControllerCtlplaneIp:
+    default: ''
+    description: Controller IP address on the ctlplane network
+    type: string
+  ControllerExternalIp:
+    default: ''
+    description: Controller IP address on the external network
+    type: string
+  ControllerInternalApiIp:
+    default: ''
+    description: Controller IP address on the internal API network
+    type: string
+  ControllerStorageIp:
+    default: ''
+    description: Controller IP address on the storage network
+    type: string
+  ControllerStorageMgmtIp:
+    default: ''
+    description: Controller IP address on the storage mgmt network
+    type: string
+  ControllerTenantIp:
+    default: ''
+    description: Controller IP address on the tenant network
+    type: string
+
+
+resources:
+  AllNodesValidationsImpl:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      group: script
+      inputs:
+        - name: controller_ctlplane_ip_address
+          default: {get_param: ControllerCtlplaneIp}
+        - name: controller_external_ip_address
+          default: {get_param: ControllerExternalIp}
+        - name: controller_internal_api_ip_address
+          default: {get_param: ControllerInternalApiIp}
+        - name: controller_storage_ip_address
+          default: {get_param: ControllerStorageIp}
+        - name: controller_storage_mgmt_ip_address
+          default: {get_param: ControllerStorageMgmtIp}
+        - name: controller_tenant_ip_address
+          default: {get_param: ControllerTenantIp}
+      outputs:
+      - name: result
+      config: {get_file: ./validation-scripts/all-nodes.sh}
+
+outputs:
+  OS::stack_id:
+    description: The ID of the AllNodesValidationsImpl resource.
+    value: {get_resource: AllNodesValidationsImpl}
