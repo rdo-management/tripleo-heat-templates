@@ -2,7 +2,7 @@
 
 # For each unique remote IP (specified via Heat) we check to
 # see if one of the locally configured networks matches and if so we
-# attempt a ping test on that networks remote IP.
+# attempt a ping test the remote network IP.
 function ping_controller_ips() {
   local REMOTE_IPS=$1
 
@@ -26,4 +26,16 @@ function ping_controller_ips() {
   done
 }
 
+function ping_default_gateway() {
+  DEFAULT_GW=$(ip r | grep default | cut -d " " -f 3)
+  echo -n "Trying to ping default gateway ${DEFAULT_GW}..."
+  if ! ping -c 1 $DEFAULT_GW &> /dev/null; then
+    echo "FAILURE"
+    echo "$DEFAULT_GW is not pingable."
+    exit 1
+  fi
+  echo "SUCCESS"
+}
+
 ping_controller_ips "$controller_ctlplane_ip_address $controller_external_ip_address $controller_internal_api_ip_address $controller_storage_ip_address $controller_storage_mgmt_ip_address $controller_tenant_ip_address"
+ping_default_gateway
